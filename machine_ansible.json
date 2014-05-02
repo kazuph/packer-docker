@@ -1,16 +1,19 @@
 {
     "builders":[{
         "type": "docker",
-        "image": "ubuntu",
+        "image": "centos",
         "export_path": "image.tar"
     }],
     "provisioners":[
         {
             "type": "shell",
             "inline": [
-                "apt-get -y update",
-                "apt-get install -y python-pip python-dev",
-                "pip install ansible"
+                "rpm -i http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm",
+                "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6",
+                "yum -y update",
+                "yum -y install gcc make passwd openssh openssh-server openssh-clients sudo python python-devel python-setuptools ansible -y",
+                "sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config",
+                "sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config"
             ]
         },
         {
@@ -21,7 +24,7 @@
     "post-processors": [
         {
             "type": "docker-import",
-            "repository": "tcnksm/packer-ansible",
+            "repository": "kazuph/packer-ansible",
             "tag": "0.1"
         }
     ]
