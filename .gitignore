@@ -5,3 +5,5 @@
 
 ### Packer ###
 packer_cache
+authorized_keys
+ssh_config
