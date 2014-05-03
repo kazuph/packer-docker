@@ -20,22 +20,16 @@
   - name: yum
     yum: pkg={{item}} state=installed enablerepo=remi,epel
     with_items:
-      th_items: 
       - "@development"
-      - expat
-      - expat-devel
       - git
       - openssl-devel
       - postfix
-      - rpm
-      - rpm-build
-      - screen
       - wget
-      - zlib-devel
-      - dstat
-      - htop
-      - iotop
+      # - zlib-devel
+      # - dstat
+      # - htop
+      # - iotop
 
-  - name: stop iptables
-    service: name=iptables state=stopped  enabled=no
+#   - name: stop iptables
+#     service: name=iptables state=stopped  enabled=no
 

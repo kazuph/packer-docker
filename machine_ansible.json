@@ -1,8 +1,8 @@
 {
     "builders":[{
         "type": "docker",
-        "image": "centos",
-        "export_path": "image.tar"
+        "image": "kazuph/packer-ansible",
+        "export_path": "centos.tar"
     }],
     "provisioners":[
         {
@@ -10,15 +10,21 @@
             "inline": [
                 "rpm -i http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm",
                 "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6",
-                "yum -y update",
-                "yum -y install gcc make passwd openssh openssh-server openssh-clients sudo python python-devel python-setuptools ansible -y",
-                "sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config",
-                "sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config"
+                "yum -y install gcc make passwd openssh openssh-server openssh-clients sudo python python-devel python-setuptools ansible -y"
             ]
         },
         {
+            "type": "file",
+            "source": "playbooks",
+            "destination": "/tmp/ansible-local"
+        },
+        {
             "type": "ansible-local",
-            "playbook_file": "playbooks/local.yml"
+            "staging_directory": "/tmp/ansible-local",
+            "playbook_file": "playbooks/main.yml",
+            "role_paths": [
+                "playbooks/roles/common"
+            ]
         }
     ],
     "post-processors": [
