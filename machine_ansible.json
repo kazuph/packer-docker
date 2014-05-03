@@ -1,7 +1,7 @@
 {
     "builders":[{
         "type": "docker",
-        "image": "kazuph/packer-ansible",
+        "image": "centos",
         "export_path": "centos.tar"
     }],
     "provisioners":[
@@ -23,7 +23,8 @@
             "staging_directory": "/tmp/ansible-local",
             "playbook_file": "playbooks/main.yml",
             "role_paths": [
-                "playbooks/roles/common"
+                "playbooks/roles/common",
+                "playbooks/roles/ruby"
             ]
         }
     ],

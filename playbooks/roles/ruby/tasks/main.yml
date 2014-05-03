@@ -1,0 +1,20 @@
+---
+  - name: check ruby version
+    shell: ruby -v | grep version
+    register: now_ruby_version
+    ignore_errors: True
+
+  - name: install ruby
+    command: chdir=/home/{{user}} {{item}}
+    with_items:
+      - git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+      - echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+      - echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+      - git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+      - source ~/.bash_profile
+      - rbenv install {{ruby_version}}
+      - rbenv global {{ruby_version}}
+      - gem install bundler
+      - rbenv rehash
+    when: now_ruby_version.stdout.find(ruby_version) == -1
+

@@ -3,10 +3,10 @@
   vars:
     user: app
     group: users
-    rury_version: 2.1.1
+    ruby_version: 2.1.1
   roles:
     - common
-    # - ruby
+    - ruby
     # - mysql
     # - nginx
     # - supervisor
