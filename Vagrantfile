@@ -1,11 +1,11 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu"
+  config.vm.box = "centos65"
   config.vm.provision :docker do |d|
     d.pull_images "busybox"
   end
   config.vm.provision :shell, :inline => <<-PREPARE
-apt-get -y update
-apt-get install -y wget unzip curl
+yum -y update
+yum install -y wget unzip curl
 
 mkdir /home/vagrant/packer
 cd /home/vagrant/packer
