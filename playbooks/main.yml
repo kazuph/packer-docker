@@ -1,0 +1,16 @@
+- hosts: 127.0.0.1
+  user: root
+  vars:
+    user: app
+    group: users
+    rury_version: 2.1.1
+  roles:
+    - common
+    # - ruby
+    # - mysql
+    # - nginx
+    # - supervisor
+    # - cron
+    # - logrotate
+    # - bakcup
+    # - app
