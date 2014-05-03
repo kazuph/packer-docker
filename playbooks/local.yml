@@ -1,8 +1,0 @@
-- hosts: 127.0.0.1
-  user: root
-  tasks:
-    - name: Install apache2
-      yum: pkg={{item}}
-      with_items:
-        - git
-        - nginx
